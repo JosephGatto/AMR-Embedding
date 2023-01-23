@@ -7,7 +7,7 @@ from penman.models.noop import NoOpModel
 from penman.models import amr
 
 
-ROOT=Path(__file__).parent
+ROOT=Path('/content/AMR-Embedding/amr')
 op_model = Model()
 noop_model = NoOpModel()
 amr_model = amr.model
@@ -52,6 +52,12 @@ def loads(string, dereify=None, remove_wiki=False):
         for i in range(len(out)):
             out[i] = _remove_wiki(out[i])
     return out
+
+def load_custom(out):
+  for i in range(len(out)):
+      out[i] = _remove_wiki(penman.decode(out[i]))
+  return out
+
 
 def encode(g, top=None, indent=-1, compact=False):
     model = amr_model
@@ -219,14 +225,13 @@ def linearize(graph, use_pointer_tokens, drop_parentheses):
     return linearized_nodes
 
 def read_raw_amr_data(
-        path: Union[str, Path],
+        graphs = None,
         dereify=True,
-        remove_wiki=False,
-        use_pointer_tokens=False,
-        drop_parentheses=False
+        remove_wiki=True,
+        use_pointer_tokens=True,
+        drop_parentheses=True
 ):
-    path = Path(path)
-    pm_graphs = load(path, dereify=dereify, remove_wiki=remove_wiki)
+    pm_graphs = load_custom(graphs)
     graphs = [' '.join(linearize(g, use_pointer_tokens, drop_parentheses)) for g in pm_graphs]
     snts = [g.metadata['snt'] for g in pm_graphs]
     return graphs, snts
