@@ -93,9 +93,7 @@ logger = logging.get_logger(__name__)
 class CLTrainer(Trainer):
     def __init__(self, *args, use_amr, path_to_amr, drop_parentheses, **kwargs):
         super().__init__(*args, **kwargs)
-        if use_amr:
-            self.amr_parser = AMRParser(path_to_amr, dereify=True, remove_wiki=True, use_pointer_tokens=True, drop_parentheses=drop_parentheses)
-        self.use_amr = use_amr
+        self.use_amr = True
 
     def evaluate(
         self,
@@ -113,9 +111,7 @@ class CLTrainer(Trainer):
             if len(batch) >= 1 and len(batch[0]) >= 1 and isinstance(batch[0][0], bytes):
                 batch = [[word.decode('utf-8') for word in s] for s in batch]
             sentences = [' '.join(s) for s in batch]
-            if self.use_amr: 
-                sentences = [self.amr_parser.parse(s) for s in sentences]
-
+            
             batch = self.tokenizer.batch_encode_plus(
                 [x.split() for x in sentences],
                 return_tensors='pt',
