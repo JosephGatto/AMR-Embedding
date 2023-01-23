@@ -94,6 +94,7 @@ class CLTrainer(Trainer):
     def __init__(self, *args, use_amr, path_to_amr, drop_parentheses, **kwargs):
         super().__init__(*args, **kwargs)
         self.use_amr = True
+        self.use_amp=False
 
     def evaluate(
         self,
