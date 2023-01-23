@@ -225,7 +225,7 @@ def linearize(graph, use_pointer_tokens, drop_parentheses):
     return linearized_nodes
 
 def read_raw_amr_data(
-        graphs = None,
+        graphs,
         dereify=True,
         remove_wiki=True,
         use_pointer_tokens=True,
