@@ -12,8 +12,7 @@ def init_amr_vocabulary(tokenizer, INIT=''):
     tokens.sort()
     old_enc_size = len(tokenizer)
     tokenizer.add_tokens(tokens)
-    test = tokenizer.tokenize("( cause-01 :ARG0 ( and :op1 ( begin-01 :ARG1 ( province :name ( name :op1 South :op2 Australia ) ) :ARG2 ( province :ARG0 -of ( govern-01 :ARG1 province ) ) :ARG1 -of ( resemble-01 :polarity - :ARG2 ( state :mod ( other ) :ARG1 -of ( found-01 :ARG2 ( colony ) ) ) ) ) :op2 ( attract-01 :ARG0 begin-01 :ARG1 ( person :quant ( many ) ) ) :op3 ( develop-02 :ARG1 ( and :op1 ( state :name ( name :op1 Adelaide ) ) :op2 ( state :name ( name :op1 SA ) ) ) :ARG2 ( state :ARG0 -of ( depend-01 :polarity - ) :ARG0 -of ( think-01 :ARG3 -of ( free-04 ) ) ) ) ) :ARG1 ( have-03 :ARG0 province :ARG1 ( position :mod ( unique ) :part -of ( history :poss province ) ) ) )".split(), is_split_into_words=True)
-    print (test)
+#     test = tokenizer.tokenize("( cause-01 :ARG0 ( and :op1 ( begin-01 :ARG1 ( province :name ( name :op1 South :op2 Australia ) ) :ARG2 ( province :ARG0 -of ( govern-01 :ARG1 province ) ) :ARG1 -of ( resemble-01 :polarity - :ARG2 ( state :mod ( other ) :ARG1 -of ( found-01 :ARG2 ( colony ) ) ) ) ) :op2 ( attract-01 :ARG0 begin-01 :ARG1 ( person :quant ( many ) ) ) :op3 ( develop-02 :ARG1 ( and :op1 ( state :name ( name :op1 Adelaide ) ) :op2 ( state :name ( name :op1 SA ) ) ) :ARG2 ( state :ARG0 -of ( depend-01 :polarity - ) :ARG0 -of ( think-01 :ARG3 -of ( free-04 ) ) ) ) ) :ARG1 ( have-03 :ARG0 province :ARG1 ( position :mod ( unique ) :part -of ( history :poss province ) ) ) )".split(), is_split_into_words=True)
     return old_enc_size
 
 def reset_model_with_tokenizer(model, tokenizer, old_enc_size, additional_tokens_smart_init=True):
@@ -51,7 +50,7 @@ def reset_model_with_tokenizer(model, tokenizer, old_enc_size, additional_tokens
             else:
                 tok_split = tok.split('-')
             tok_split = tokenizer.tokenize(tok_split, is_split_into_words=True)
-            print ('initialize amr token: ', tok, ' => ', tok_split)
+#             print ('initialize amr token: ', tok, ' => ', tok_split)
             vecs = []
             for s in tok_split:
                 idx_split = vocab.get(s, -1)
