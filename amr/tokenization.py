@@ -1,7 +1,7 @@
 import torch
 import collections
 
-from .IO import AMRTokens
+from IO import AMRTokens
 
 INIT_XLM_ROBERTA = '▁'
 INIT_ROBERTA = 'Ġ'
